@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Todos from '@/views/todos.vue'
+import Todos from '@/views/todo.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // Route of top page
