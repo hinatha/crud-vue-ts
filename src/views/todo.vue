@@ -1,4 +1,13 @@
-<template>TODO一覧です。</template>
+<template>
+  <h2>TODO一覧</h2>
+  <ul>
+    <!-- const state = reactive<TodoState> ({ todos: mockTodo, }) -->
+    <!-- state: readonly(state), -->
+    <li v-for="todo in todoStore.state.todos" :key="todo.id">
+      {{ todo.title }}
+    </li>
+  </ul>
+</template>
 
 <script lang="ts">
 import { defineComponent, inject } from 'vue'
