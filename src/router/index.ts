@@ -18,6 +18,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   // Route of EditTodo page
   {
+    // We can set parameter to do like ":id"
     path: '/edit/:id',
     name: 'EtidTodo',
     component: EditTodo,
