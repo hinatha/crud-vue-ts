@@ -16,8 +16,8 @@ import { defineComponent, inject } from 'vue'
 import { todoKey } from '@/store/todo'
 
 export default defineComponent({
-  // Inject todoStore
   setup () {
+    // Inject todoStore
     const todoStore = inject(todoKey)
     // todoStore: Store | undefined
     // We need to check if the type is correct (Store)
