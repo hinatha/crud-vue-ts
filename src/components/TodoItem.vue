@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Todo } from '@/store/todo/types'
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, isRef, PropType, Ref, ref } from 'vue'
 
 export default defineComponent({
   // props: parent component -> child component
@@ -46,12 +46,23 @@ export default defineComponent({
       emit('clickTitle', props.todo.id)
     }
 
-    // Format date when update reactive value
-    const formatDate = computed(() => {
-      return `${props.todo.createdAt.getFullYear()}/${
-        props.todo.createdAt.getMonth() + 1
-      }/${props.todo.createdAt.getDate()}`
-    })
+    // Function for formatting date
+    const useFormatDate = (date: Date | Ref<Date>) => {
+      // isRef() decide if date is Ref or not
+      // If date is not ref, become ref date
+      const dateRef = isRef(date) ? date : ref(date)
+
+      // Format dateRef like below
+      // 2022/12/01
+      return computed(() => {
+        return `${dateRef.value.getFullYear()}/${
+          dateRef.value.getMonth() + 1
+        }/${dateRef.value.getDate()}`
+      })
+    }
+
+    // Format date when update props.todo
+    const formatDate = useFormatDate(props.todo.createdAt)
 
     return {
       clickDelete,
