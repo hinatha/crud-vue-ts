@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Todos from '@/views/todo.vue'
 import AddTodo from '@/views/AddTodo.vue'
+import EditTodo from '@/views/EditTodo.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // Route of top page
@@ -14,6 +15,13 @@ const routes: Array<RouteRecordRaw> = [
     path: '/new',
     name: 'AddTodo',
     component: AddTodo,
+  },
+  // Route of EditTodo page
+  {
+    // We can set parameter to do like ":id"
+    path: '/edit/:id',
+    name: 'EtidTodo',
+    component: EditTodo,
   },
 ]
 
