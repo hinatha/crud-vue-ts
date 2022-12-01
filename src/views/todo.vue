@@ -6,6 +6,8 @@
     <li v-for="todo in todoStore.state.todos" :key="todo.id">
       {{ todo.title }}
     </li>
+    <!-- Link for AddTodo page -->
+    <router-link to="/new">新規作成</router-link>
   </ul>
 </template>
 
