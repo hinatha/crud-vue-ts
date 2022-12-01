@@ -18,7 +18,8 @@
 
 <script lang="ts">
 import { Todo } from '@/store/todo/types'
-import { computed, defineComponent, isRef, PropType, Ref, ref } from 'vue'
+import { defineComponent, PropType } from 'vue'
+import { useFormatDate } from '@/composables/use-formate-date'
 
 export default defineComponent({
   // props: parent component -> child component
@@ -44,21 +45,6 @@ export default defineComponent({
     const clickTitle = () => {
       // Set emit as clickTitle
       emit('clickTitle', props.todo.id)
-    }
-
-    // Function for formatting date
-    const useFormatDate = (date: Date | Ref<Date>) => {
-      // isRef() decide if date is Ref or not
-      // If date is not ref, become ref date
-      const dateRef = isRef(date) ? date : ref(date)
-
-      // Format dateRef like below
-      // 2022/12/01
-      return computed(() => {
-        return `${dateRef.value.getFullYear()}/${
-          dateRef.value.getMonth() + 1
-        }/${dateRef.value.getDate()}`
-      })
     }
 
     // Format date when update props.todo
