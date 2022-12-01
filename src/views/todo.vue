@@ -6,6 +6,8 @@
     <li v-for="todo in todoStore.state.todos" :key="todo.id">
       {{ todo.title }}
     </li>
+    <!-- Link for AddTodo page -->
+    <router-link to="/new">新規作成</router-link>
   </ul>
 </template>
 
@@ -14,8 +16,8 @@ import { defineComponent, inject } from 'vue'
 import { todoKey } from '@/store/todo'
 
 export default defineComponent({
-  // Inject todoStore
   setup () {
+    // Inject todoStore
     const todoStore = inject(todoKey)
     // todoStore: Store | undefined
     // We need to check if the type is correct (Store)

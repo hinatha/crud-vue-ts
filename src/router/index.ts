@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Todos from '@/views/todo.vue'
+import AddTodo from '@/views/AddTodo.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // Route of top page
@@ -7,6 +8,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'Todos',
     component: Todos,
+  },
+  // Route of AddTodo page
+  {
+    path: '/new',
+    name: 'AddTodo',
+    component: AddTodo,
   },
 ]
 
