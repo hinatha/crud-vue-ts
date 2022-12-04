@@ -1,8 +1,14 @@
 <template>
   <h2>TODO一覧</h2>
-  <!-- Wrapper for the Async method -->
   <Suspense>
-    <AsyncTodos />
+    <!-- Wrapper for the Async method -->
+    <template #default>
+      <AsyncTodos />
+    </template>
+    <!-- Show the loading screen when the Async method is called-->
+    <template #fallback>
+      <div>Loading...</div>
+    </template>
   </Suspense>
   <router-link to="/new">新規作成</router-link>
 </template>
