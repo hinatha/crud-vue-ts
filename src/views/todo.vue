@@ -1,5 +1,9 @@
 <template>
   <h2>TODO一覧</h2>
+  <!-- Show error message -->
+  <div v-if="error">
+    {{ error.message }}
+  </div>
   <Suspense>
     <!-- Wrapper for the Async method -->
     <template #default>
@@ -14,12 +18,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, onErrorCaptured } from 'vue'
 import AsyncTodos from '@/components/AsyncTodos.vue'
 
 export default defineComponent({
   components: {
     AsyncTodos,
+  },
+  setup () {
+    // Set error
+    const error = ref<unknown>(null)
+
+    // Catch error
+    onErrorCaptured((e) => {
+      // Set error value as e
+      error.value = e
+      return true
+    })
+
+    return {
+      error,
+    }
   },
 })
 </script>
