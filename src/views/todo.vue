@@ -26,7 +26,7 @@ export default defineComponent({
   components: {
     TodoItem,
   },
-  setup () {
+  async setup () { // Change to async (This case doesn't work)
     // Inject todoStore
     const todoStore = inject(todoKey)
     // todoStore: Store | undefined
@@ -52,6 +52,8 @@ export default defineComponent({
       // Move to edit page
       router.push(`/edit/${id}`)
     }
+
+    await todoStore.fetchTodos() // Call fetchTodos() with await (This case doesn't work)
 
     return {
       todoStore,
