@@ -1,50 +1,25 @@
 import { InjectionKey, reactive, readonly } from 'vue'
-import { Params, Todo, TodoState, TodoStore } from '@/store/todo/types'
+import { Todo, Params, TodoState, TodoStore } from '@/store/todo/types'
+import Repository, { TODOS } from '@/clients/RepositoryFactory'
 
-// It's mock
-const mockTodo: Todo[] = [
-  {
-    id: 1,
-    title: 'todo1',
-    description: '1つ目',
-    status: 'waiting',
-    createdAt: new Date('2020-12-01'),
-    updatedAt: new Date('2020-12-01'),
-  },
-  {
-    id: 2,
-    title: 'todo2',
-    description: '2つ目',
-    status: 'waiting',
-    createdAt: new Date('2020-12-02'),
-    updatedAt: new Date('2020-12-02'),
-  },
-  {
-    id: 3,
-    title: 'todo3',
-    description: '3つ目',
-    status: 'working',
-    createdAt: new Date('2020-12-03'),
-    updatedAt: new Date('2020-12-04'),
-  },
-]
+// TODOS stored in localstorage
+const TodoRepository = Repository[TODOS]
 
 // We can change state only inside this store
 const state = reactive<TodoState>({
-  todos: mockTodo,
+  todos: [],
 })
 
-// Change from Params to Todo
-const intitializeTodo = (todo: Params) => {
-  const date = new Date()
-  return {
-    id: date.getTime(),
-    title: todo.title,
-    description: todo.description,
-    status: todo.status,
-    createdAt: date,
-    updatedAt: date,
-  } as Todo
+const fetchTodos = async () => {
+  // getAll() is Promise
+  state.todos = await TodoRepository.getAll()
+}
+
+const fetchTodo = async (id: number) => {
+  // get(id) is Promise
+  const todo = await TodoRepository.get(id)
+  // Push this todo to state
+  state.todos.push(todo)
 }
 
 // Get Todo by id
@@ -58,24 +33,31 @@ const getTodo = (id: number) => {
 }
 
 // Add Todo
-const addTodo = (todo: Params) => {
-  state.todos.push(intitializeTodo(todo))
+const addTodo = async (todo: Params) => {
+  // Create todo from params
+  const result = await TodoRepository.create(todo)
+  // Push this todo to state
+  state.todos.push(result)
 }
 
 // Update Todo by id
-const updateTodo = (id: number, todo: Todo) => {
+const updateTodo = async (id: number, todo: Todo) => {
+  // Update Todo of localstorage
+  const result = await TodoRepository.update(id, todo)
   // findIndex method returns the position of id
   // If todo.id didn't match id, findIndex returns -1
   const index = state.todos.findIndex((todo) => todo.id === id)
   if (index === -1) {
     throw new Error(`cannot find todo by id:${id}`)
   }
-  // Update Todo by index of list
+  // Update state of Todo by index of list
   state.todos[index] = todo
 }
 
 // Delete by id
 const deleteTodo = (id: number) => {
+  // Delete Todo of localstorage
+  TodoRepository.delete(id)
   // state.todos = todos other than this id
   state.todos = state.todos.filter((todo) => todo.id !== id)
 }
@@ -83,6 +65,8 @@ const deleteTodo = (id: number) => {
 // Wrapper methods in the store
 const todoStore: TodoStore = {
   state: readonly(state),
+  fetchTodos,
+  fetchTodo,
   getTodo,
   addTodo,
   updateTodo,
