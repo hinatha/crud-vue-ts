@@ -4,7 +4,7 @@
   <div v-if="error">
     {{ error.message }}
   </div>
-  <Suspense>
+  <Suspense v-else>
     <!-- Wrapper for the Async method -->
     <template #default>
       <AsyncTodos />
