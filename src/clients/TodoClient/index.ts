@@ -4,7 +4,7 @@ import { TodoClientInterface } from './types'
 export class TodoClient implements TodoClientInterface {
   async getAll () {
     // Make delay to call
-    await new Promise((resolve) => setTimeout(resolve, 3000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
     return Promise.resolve(
       // Get localStrage key list(todo.id list)
       Object.keys(localStorage)

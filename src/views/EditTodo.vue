@@ -62,6 +62,12 @@ export default defineComponent({
       const todo = todoStore.getTodo(id)
 
       // Set Params as first form value
+      // If React, like below
+      // const [data, setData] = useState<Params>({
+      //   title: todo.title,
+      //   description: todo.description,
+      //   status: todo.status,
+      // })
       const data = reactive<Params>({
         title: todo.title,
         description: todo.description,
@@ -75,6 +81,11 @@ export default defineComponent({
           // Original todo before update
           ...todo,
           // Form values after changing todo
+          // type Params = {
+          //   title: string
+          //   description: string
+          //   status: Status
+          // };
           title,
           description,
           status,

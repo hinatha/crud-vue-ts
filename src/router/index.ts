@@ -20,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     // We can set parameter to do like ":id"
     path: '/edit/:id',
-    name: 'EtidTodo',
+    name: 'EditTodo',
     component: EditTodo,
   },
 ]
