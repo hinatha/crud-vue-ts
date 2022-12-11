@@ -10,7 +10,6 @@ User story
 - You can see todos.
 - You can delete todo.
 - You can edit todo.
-- You can see the number of todos.
 
 ## (2)Project Structure
 
